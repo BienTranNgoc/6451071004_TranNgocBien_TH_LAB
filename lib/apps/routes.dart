@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../views/splash/splash_screen.dart';
 import '../views/onboarding/onboarding_screen.dart';
-import '../views/auth/login_screen.dart';
-import '../views/auth/register_screen.dart';
-import '../views/auth/forgot_password_screen.dart';
 import '../views/auth/check_email_screen.dart';
 import '../views/auth/success_screen.dart';
+import '../features/auth/presentation/pages/login_page.dart';
+import '../features/auth/presentation/pages/register_page.dart';
+import '../features/auth/presentation/pages/forgot_password_page.dart';
 
 class AppRoutes {
   static const String splash = '/';
@@ -19,9 +19,9 @@ class AppRoutes {
   static Map<String, WidgetBuilder> get routes => {
         splash: (context) => const SplashScreen(),
         onboarding: (context) => OnboardingScreen(),
-        login: (context) => const LoginScreen(),
-        register: (context) => const RegisterScreen(),
-        forgotPassword: (context) => const ForgotPasswordScreen(),
+        login: (context) => const LoginPage(),
+        register: (context) => const RegisterPage(),
+        forgotPassword: (context) => const ForgotPasswordPage(),
         checkEmail: (context) => const CheckEmailScreen(),
         success: (context) => const SuccessScreen(),
       };

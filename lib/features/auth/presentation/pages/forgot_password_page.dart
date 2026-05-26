@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_assets.dart';
-import '../../utils/app_strings.dart';
-import '../../utils/app_styles.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/custom_textfield.dart';
-import '../../controller/auth_controller.dart';
+import 'package:jobspot/utils/app_colors.dart';
+import 'package:jobspot/utils/app_assets.dart';
+import 'package:jobspot/utils/app_strings.dart';
+import 'package:jobspot/utils/app_styles.dart';
+import 'package:jobspot/widgets/custom_button.dart';
+import 'package:jobspot/widgets/custom_textfield.dart';
+import '../provider/auth_provider.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final emailController = TextEditingController();
   bool _emailSent = false;
 
@@ -27,7 +27,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   void _handleResetPassword(
-      BuildContext context, AuthController authController) async {
+      BuildContext context, AuthProvider authProvider) async {
     if (emailController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Vui lòng nhập email')),
@@ -35,7 +35,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       return;
     }
 
-    final success = await authController.resetPassword(
+    final success = await authProvider.resetPassword(
       email: emailController.text.trim(),
     );
 
@@ -50,9 +50,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           Navigator.pushNamed(context, '/check_email');
         }
       });
-    } else if (authController.errorMessage != null) {
+    } else if (authProvider.errorMessage != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(authController.errorMessage!)),
+        SnackBar(content: Text(authProvider.errorMessage!)),
       );
     }
   }
@@ -61,8 +61,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Consumer<AuthController>(
-        builder: (context, authController, _) {
+      body: Consumer<AuthProvider>(
+        builder: (context, authProvider, _) {
           return SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20.0),
@@ -86,12 +86,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                   const SizedBox(height: 30),
                   CustomButton(
-                    text: authController.isLoading
+                    text: authProvider.isLoading
                         ? 'Đang gửi...'
                         : AppStrings.resetPassword,
-                    onPressed: authController.isLoading
+                    onPressed: authProvider.isLoading
                         ? () {}
-                        : () => _handleResetPassword(context, authController),
+                        : () => _handleResetPassword(context, authProvider),
                   ),
                   const SizedBox(height: 20),
                   CustomButton(

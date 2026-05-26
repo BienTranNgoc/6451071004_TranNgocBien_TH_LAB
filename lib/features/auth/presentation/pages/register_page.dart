@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_strings.dart';
-import '../../utils/app_styles.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/custom_textfield.dart';
-import '../../widgets/social_button.dart';
-import '../../widgets/custom_checkbox.dart';
-import '../../controller/auth_controller.dart';
+import 'package:jobspot/utils/app_colors.dart';
+import 'package:jobspot/utils/app_strings.dart';
+import 'package:jobspot/utils/app_styles.dart';
+import 'package:jobspot/widgets/custom_button.dart';
+import 'package:jobspot/widgets/custom_textfield.dart';
+import 'package:jobspot/widgets/social_button.dart';
+import 'package:jobspot/widgets/custom_checkbox.dart';
+import '../provider/auth_provider.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterPageState extends State<RegisterPage> {
   bool _rememberMe = false;
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -30,7 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-  void _handleSignUp(BuildContext context, AuthController authController) async {
+  void _handleSignUp(BuildContext context, AuthProvider authProvider) async {
     if (fullNameController.text.isEmpty ||
         emailController.text.isEmpty ||
         passwordController.text.isEmpty) {
@@ -47,19 +47,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
-    final success = await authController.signUp(
+    final success = await authProvider.signUp(
       email: emailController.text.trim(),
       password: passwordController.text,
-      name: fullNameController.text.trim(),
+      fullName: fullNameController.text.trim(),
     );
 
     if (!mounted) return;
 
     if (success) {
       Navigator.pushReplacementNamed(context, '/success');
-    } else if (authController.errorMessage != null) {
+    } else if (authProvider.errorMessage != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(authController.errorMessage!)),
+        SnackBar(content: Text(authProvider.errorMessage!)),
       );
     }
   }
@@ -68,8 +68,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Consumer<AuthController>(
-        builder: (context, authController, _) {
+      body: Consumer<AuthProvider>(
+        builder: (context, authProvider, _) {
           return SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20.0),
@@ -117,10 +117,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 30),
                   CustomButton(
-                    text: authController.isLoading ? 'Đang đăng ký...' : AppStrings.btnSignUp,
-                    onPressed: authController.isLoading
+                    text: authProvider.isLoading ? 'Đang đăng ký...' : AppStrings.btnSignUp,
+                    onPressed: authProvider.isLoading
                         ? () {}
-                        : () => _handleSignUp(context, authController),
+                        : () => _handleSignUp(context, authProvider),
                   ),
                   const SizedBox(height: 20),
                   SocialButton(
