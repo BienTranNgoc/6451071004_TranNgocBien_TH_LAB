@@ -31,10 +31,7 @@ class CustomCheckbox extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Text(
-          label,
-          style: AppStyles.body2,
-        ),
+        Text(label, style: AppStyles.body2),
       ],
     );
   }

@@ -21,7 +21,7 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
         fullName: fullName,
       );
-      
+
       final user = await remoteDataSource.getCurrentUser();
       if (user != null) {
         return AuthResponseEntity(
@@ -31,10 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return AuthResponseEntity(success: true);
     } catch (e) {
-      return AuthResponseEntity(
-        success: false,
-        message: e.toString(),
-      );
+      return AuthResponseEntity(success: false, message: e.toString());
     }
   }
 
@@ -44,11 +41,8 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) async {
     try {
-      await remoteDataSource.login(
-        email: email,
-        password: password,
-      );
-      
+      await remoteDataSource.login(email: email, password: password);
+
       final user = await remoteDataSource.getCurrentUser();
       if (user != null) {
         return AuthResponseEntity(
@@ -58,17 +52,12 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return AuthResponseEntity(success: true);
     } catch (e) {
-      return AuthResponseEntity(
-        success: false,
-        message: e.toString(),
-      );
+      return AuthResponseEntity(success: false, message: e.toString());
     }
   }
 
   @override
-  Future<AuthResponseEntity> resetPassword({
-    required String email,
-  }) async {
+  Future<AuthResponseEntity> resetPassword({required String email}) async {
     try {
       await remoteDataSource.resetPassword(email: email);
       return AuthResponseEntity(
@@ -76,10 +65,7 @@ class AuthRepositoryImpl implements AuthRepository {
         message: 'Link reset mật khẩu đã được gửi tới $email',
       );
     } catch (e) {
-      return AuthResponseEntity(
-        success: false,
-        message: e.toString(),
-      );
+      return AuthResponseEntity(success: false, message: e.toString());
     }
   }
 

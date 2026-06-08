@@ -8,11 +8,7 @@ class SocialButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const SocialButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-  });
+  const SocialButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ class CustomTextField extends StatefulWidget {
   final String label;
   final bool isPassword;
   final TextEditingController? controller;
-  
+
   const CustomTextField({
     super.key,
     required this.label,
@@ -40,7 +40,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
+                color: Colors.grey.withValues(alpha: 0.1),
                 blurRadius: 10,
                 offset: const Offset(0, 5),
               ),
@@ -56,7 +56,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ),
               filled: true,
               fillColor: AppColors.white,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 15,
+              ),
               suffixIcon: widget.isPassword
                   ? IconButton(
                       icon: Icon(

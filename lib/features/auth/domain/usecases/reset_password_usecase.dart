@@ -6,9 +6,7 @@ class ResetPasswordUseCase {
 
   ResetPasswordUseCase(this.repository);
 
-  Future<AuthResponseEntity> call({
-    required String email,
-  }) {
+  Future<AuthResponseEntity> call({required String email}) {
     return repository.resetPassword(email: email);
   }
 }

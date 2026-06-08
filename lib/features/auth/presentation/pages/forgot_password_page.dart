@@ -26,12 +26,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     super.dispose();
   }
 
-  void _handleResetPassword(
-      BuildContext context, AuthProvider authProvider) async {
+  void _handleResetPassword(AuthProvider authProvider) async {
     if (emailController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Vui lòng nhập email')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Vui lòng nhập email')));
       return;
     }
 
@@ -51,9 +50,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         }
       });
     } else if (authProvider.errorMessage != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(authProvider.errorMessage!)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(authProvider.errorMessage!)));
     }
   }
 
@@ -91,7 +90,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         : AppStrings.resetPassword,
                     onPressed: authProvider.isLoading
                         ? () {}
-                        : () => _handleResetPassword(context, authProvider),
+                        : () => _handleResetPassword(authProvider),
                   ),
                   const SizedBox(height: 20),
                   CustomButton(

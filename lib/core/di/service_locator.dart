@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
+import '../db/app_database.dart';
 import '../../features/auth/data/datasources/firebase_auth_datasource.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/usecases/get_current_user_usecase.dart';
@@ -7,10 +8,22 @@ import '../../features/auth/domain/usecases/logout_usecase.dart';
 import '../../features/auth/domain/usecases/reset_password_usecase.dart';
 import '../../features/auth/domain/usecases/sign_up_usecase.dart';
 import '../../features/auth/presentation/provider/auth_provider.dart';
-
+import '../../features/profile/data/datasources/sqlite_profile_datasource.dart';
+import '../../features/profile/data/repositories/profile_repository_impl.dart';
+import '../../features/profile/domain/usecases/create_profile_usecase.dart';
+import '../../features/profile/domain/usecases/delete_profile_usecase.dart';
+import '../../features/profile/domain/usecases/get_profiles_usecase.dart';
+import '../../features/profile/domain/usecases/update_profile_usecase.dart';
+import '../../features/profile/presentation/provider/profile_provider.dart';
 
 class ServiceLocator {
   static void setup() {
+    _setupAuth();
+    _setupProfile();
+  }
+
+  // ===================== Auth (Firebase) =====================
+  static void _setupAuth() {
     // Firebase
     final firebaseAuth = FirebaseAuth.instance;
 
@@ -37,5 +50,29 @@ class ServiceLocator {
     );
   }
 
+  // ===================== Profile (SQLite) =====================
+  static void _setupProfile() {
+    // Data Sources
+    final profileDataSource = SqliteProfileDataSource(AppDatabase.instance);
+
+    // Repositories
+    final profileRepository = ProfileRepositoryImpl(profileDataSource);
+
+    // UseCases
+    final getProfilesUseCase = GetProfilesUseCase(profileRepository);
+    final createProfileUseCase = CreateProfileUseCase(profileRepository);
+    final updateProfileUseCase = UpdateProfileUseCase(profileRepository);
+    final deleteProfileUseCase = DeleteProfileUseCase(profileRepository);
+
+    // Providers
+    profileProviderInstance = ProfileProvider(
+      getProfilesUseCase: getProfilesUseCase,
+      createProfileUseCase: createProfileUseCase,
+      updateProfileUseCase: updateProfileUseCase,
+      deleteProfileUseCase: deleteProfileUseCase,
+    );
+  }
+
   static late AuthProvider authProviderInstance;
+  static late ProfileProvider profileProviderInstance;
 }

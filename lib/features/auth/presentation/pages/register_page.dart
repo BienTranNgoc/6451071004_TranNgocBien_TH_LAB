@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  void _handleSignUp(BuildContext context, AuthProvider authProvider) async {
+  void _handleSignUp(AuthProvider authProvider) async {
     if (fullNameController.text.isEmpty ||
         emailController.text.isEmpty ||
         passwordController.text.isEmpty) {
@@ -58,9 +58,9 @@ class _RegisterPageState extends State<RegisterPage> {
     if (success) {
       Navigator.pushReplacementNamed(context, '/success');
     } else if (authProvider.errorMessage != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(authProvider.errorMessage!)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(authProvider.errorMessage!)));
     }
   }
 
@@ -117,21 +117,23 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   const SizedBox(height: 30),
                   CustomButton(
-                    text: authProvider.isLoading ? 'Đang đăng ký...' : AppStrings.btnSignUp,
+                    text: authProvider.isLoading
+                        ? 'Đang đăng ký...'
+                        : AppStrings.btnSignUp,
                     onPressed: authProvider.isLoading
                         ? () {}
-                        : () => _handleSignUp(context, authProvider),
+                        : () => _handleSignUp(authProvider),
                   ),
                   const SizedBox(height: 20),
-                  SocialButton(
-                    text: AppStrings.signUpGoogle,
-                    onPressed: () {},
-                  ),
+                  SocialButton(text: AppStrings.signUpGoogle, onPressed: () {}),
                   const SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(AppStrings.alreadyHaveAccount, style: AppStyles.body2),
+                      Text(
+                        AppStrings.alreadyHaveAccount,
+                        style: AppStyles.body2,
+                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.pop(context);

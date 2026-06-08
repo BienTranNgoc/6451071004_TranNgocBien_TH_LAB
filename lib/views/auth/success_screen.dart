@@ -33,14 +33,22 @@ class SuccessScreen extends StatelessWidget {
               CustomButton(
                 text: AppStrings.continueBtn,
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/login',
+                    (route) => false,
+                  );
                 },
               ),
               const SizedBox(height: 20),
               CustomButton(
                 text: AppStrings.backToLogin,
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/login',
+                    (route) => false,
+                  );
                 },
                 color: AppColors.secondary,
                 textColor: AppColors.primary,

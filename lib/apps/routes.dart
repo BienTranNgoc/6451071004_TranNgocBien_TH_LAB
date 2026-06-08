@@ -6,6 +6,7 @@ import '../views/auth/success_screen.dart';
 import '../features/auth/presentation/pages/login_page.dart';
 import '../features/auth/presentation/pages/register_page.dart';
 import '../features/auth/presentation/pages/forgot_password_page.dart';
+import '../features/profile/presentation/pages/profile_list_page.dart';
 
 class AppRoutes {
   static const String splash = '/';
@@ -15,14 +16,16 @@ class AppRoutes {
   static const String forgotPassword = '/forgot_password';
   static const String checkEmail = '/check_email';
   static const String success = '/success';
+  static const String home = '/home';
 
   static Map<String, WidgetBuilder> get routes => {
-        splash: (context) => const SplashScreen(),
-        onboarding: (context) => OnboardingScreen(),
-        login: (context) => const LoginPage(),
-        register: (context) => const RegisterPage(),
-        forgotPassword: (context) => const ForgotPasswordPage(),
-        checkEmail: (context) => const CheckEmailScreen(),
-        success: (context) => const SuccessScreen(),
-      };
+    splash: (context) => const SplashScreen(),
+    onboarding: (context) => const OnboardingScreen(),
+    login: (context) => const LoginPage(),
+    register: (context) => const RegisterPage(),
+    forgotPassword: (context) => const ForgotPasswordPage(),
+    checkEmail: (context) => const CheckEmailScreen(),
+    success: (context) => const SuccessScreen(),
+    home: (context) => const ProfileListPage(),
+  };
 }

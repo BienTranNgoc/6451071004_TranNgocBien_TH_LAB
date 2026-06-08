@@ -5,13 +5,18 @@
 ```
 lib/
 ├── core/                                 # Shared code
-│   ├── config/                          # App configuration
 │   ├── constants/                       # Constants (messages, strings)
+│   ├── db/                              # AppDatabase (SQLite)
 │   ├── di/                              # Dependency Injection
 │   └── core.dart                        # Exports
 │
 ├── features/
-│   └── auth/                            # Auth Feature
+│   ├── profile/                         # Profile Feature (SQLite CRUD) — Phần 3
+│   │   ├── data/                        #   datasources (SQLite) / models / repositories
+│   │   ├── domain/                      #   entities / repositories / usecases
+│   │   └── presentation/                #   provider / pages / widgets
+│   │
+│   └── auth/                            # Auth Feature — Phần 2
 │       ├── data/                        # Data Layer
 │       │   ├── datasources/             # External APIs (Firebase)
 │       │   ├── models/                  # Data Models (with JSON conversion)

@@ -13,9 +13,7 @@ abstract class AuthRepository {
     required String password,
   });
 
-  Future<AuthResponseEntity> resetPassword({
-    required String email,
-  });
+  Future<AuthResponseEntity> resetPassword({required String email});
 
   Future<void> logout();
 

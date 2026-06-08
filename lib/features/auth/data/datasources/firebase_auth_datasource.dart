@@ -24,10 +24,7 @@ class FirebaseAuthDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> login({required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -39,9 +36,7 @@ class FirebaseAuthDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> resetPassword({
-    required String email,
-  }) async {
+  Future<void> resetPassword({required String email}) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
@@ -96,7 +91,9 @@ class FirebaseAuthDataSourceImpl implements AuthRemoteDataSource {
       case 'invalid-email':
         return Exception('Email không hợp lệ');
       case 'too-many-requests':
-        return Exception('Quá nhiều lần đăng nhập thất bại. Vui lòng thử lại sau');
+        return Exception(
+          'Quá nhiều lần đăng nhập thất bại. Vui lòng thử lại sau',
+        );
       case 'network-request-failed':
         return Exception('Lỗi kết nối mạng');
       default:

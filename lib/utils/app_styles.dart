@@ -14,7 +14,7 @@ class AppStyles {
     fontWeight: FontWeight.bold,
     color: AppColors.textPrimary,
   );
-  
+
   static TextStyle heading3 = GoogleFonts.poppins(
     fontSize: 20,
     fontWeight: FontWeight.bold,
@@ -32,7 +32,7 @@ class AppStyles {
     fontWeight: FontWeight.normal,
     color: AppColors.textSecondary,
   );
-  
+
   static TextStyle bodySmall = GoogleFonts.poppins(
     fontSize: 12,
     fontWeight: FontWeight.normal,

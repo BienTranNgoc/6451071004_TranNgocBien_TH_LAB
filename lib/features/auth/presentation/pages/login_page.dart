@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _handleLogin(BuildContext context, AuthProvider authProvider) async {
+  void _handleLogin(AuthProvider authProvider) async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Vui lòng nhập email và mật khẩu')),
@@ -45,11 +45,11 @@ class _LoginPageState extends State<LoginPage> {
 
     if (success) {
       authProvider.setRememberMe(_rememberMe);
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacementNamed(context, '/home');
     } else if (authProvider.errorMessage != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(authProvider.errorMessage!)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(authProvider.errorMessage!)));
     }
   }
 
@@ -103,23 +103,24 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: Text(
                           AppStrings.forgotPassword,
-                          style: AppStyles.body2.copyWith(color: AppColors.primary),
+                          style: AppStyles.body2.copyWith(
+                            color: AppColors.primary,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 30),
                   CustomButton(
-                    text: authProvider.isLoading ? 'Đang đăng nhập...' : AppStrings.login,
+                    text: authProvider.isLoading
+                        ? 'Đang đăng nhập...'
+                        : AppStrings.login,
                     onPressed: authProvider.isLoading
                         ? () {}
-                        : () => _handleLogin(context, authProvider),
+                        : () => _handleLogin(authProvider),
                   ),
                   const SizedBox(height: 20),
-                  SocialButton(
-                    text: AppStrings.signInGoogle,
-                    onPressed: () {},
-                  ),
+                  SocialButton(text: AppStrings.signInGoogle, onPressed: () {}),
                   const SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

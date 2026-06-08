@@ -76,19 +76,13 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<bool> login({required String email, required String password}) async {
     try {
       _isLoading = true;
       _errorMessage = null;
       notifyListeners();
 
-      final response = await loginUseCase(
-        email: email,
-        password: password,
-      );
+      final response = await loginUseCase(email: email, password: password);
 
       if (response.success) {
         _user = response.user;

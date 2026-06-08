@@ -5,7 +5,8 @@ class AuthErrorMessages {
   static const String userNotFound = 'Người dùng không tồn tại';
   static const String wrongPassword = 'Mật khẩu không chính xác';
   static const String invalidEmail = 'Email không hợp lệ';
-  static const String tooManyRequests = 'Quá nhiều lần đăng nhập thất bại. Vui lòng thử lại sau';
+  static const String tooManyRequests =
+      'Quá nhiều lần đăng nhập thất bại. Vui lòng thử lại sau';
   static const String networkError = 'Lỗi kết nối mạng';
   static const String unknownError = 'Lỗi không xác định';
 }

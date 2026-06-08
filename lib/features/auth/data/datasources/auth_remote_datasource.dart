@@ -5,14 +5,9 @@ abstract class AuthRemoteDataSource {
     required String fullName,
   });
 
-  Future<void> login({
-    required String email,
-    required String password,
-  });
+  Future<void> login({required String email, required String password});
 
-  Future<void> resetPassword({
-    required String email,
-  });
+  Future<void> resetPassword({required String email});
 
   Future<void> logout();
 

@@ -40,7 +40,11 @@ class CheckEmailScreen extends StatelessWidget {
               CustomButton(
                 text: AppStrings.backToLogin,
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/login',
+                    (route) => false,
+                  );
                 },
                 color: AppColors.secondary,
                 textColor: AppColors.primary,
